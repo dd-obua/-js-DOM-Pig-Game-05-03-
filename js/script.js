@@ -23,4 +23,15 @@ btnRollDice.addEventListener('click', function () {
   // Display rolled dice
   diceElement.classList.remove('hidden');
   diceElement.src = `./img/dice-${randomDiceRoll}.png`;
+
+  if (randomDiceRoll !== 1) {
+    // Update current score 1
+    currentScore1 += randomDiceRoll;
+
+    // Display current score 1
+    currentScore1Text.textContent = currentScore1;
+  } else {
+    currentScore1 = 0;
+    currentScore1Text.textContent = currentScore1;
+  }
 });
