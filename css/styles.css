@@ -60,6 +60,11 @@ h2 {
 }
 
 .section-1 {
+  background: #fcabae;
+}
+
+.section-2 {
+  background: #e2c7e2;
 }
 
 .section-bottom {
@@ -68,17 +73,18 @@ h2 {
   padding: 2rem 5rem;
   border-radius: 1rem;
   margin: 0 auto;
+
+  background: #c53b52;
 }
 
 .current__text {
+  font-weight: 100;
   margin-bottom: 2rem;
 }
 
 .current-score {
   font-size: 3.6rem;
   font-weight: 300;
-  color: #c7365f;
-  /* margin-bottom: auto; */
 }
 
 .btn {
