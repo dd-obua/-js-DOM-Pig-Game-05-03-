@@ -1,5 +1,9 @@
 const select = selector => document.querySelector(selector);
 
-const rollDice = select('.roll-dice');
+const btnRollDice = select('.roll-dice');
 
-rollDice.addEventListener('click', function () {});
+const rollDice = () => Math.trunc(Math.random() * 6) + 1;
+
+btnRollDice.addEventListener('click', function () {
+  const randomDiceRoll = rollDice();
+});
