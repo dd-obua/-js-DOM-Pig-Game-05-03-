@@ -25,7 +25,7 @@ body {
   border-radius: 1.5rem;
   text-align: center;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 255, 255, 0.349);
   backdrop-filter: blur(200px);
   filter: blur();
 
