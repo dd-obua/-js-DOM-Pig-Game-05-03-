@@ -13,7 +13,29 @@ const rollDice = () => Math.trunc(Math.random() * 6) + 1;
 
 btnRollDice.addEventListener('click', function () {
   const randomDiceRoll = rollDice();
-
+  console.log(randomDiceRoll, typeof randomDiceRoll);
   // Display rolled dice
   dice.classList.remove('hidden');
+
+  // Display successfull dice number
+  switch (randomDiceRoll) {
+    case 1:
+      dice1.classList.remove('hidden');
+      break;
+    case 2:
+      dice2.classList.remove('hidden');
+      break;
+    case 3:
+      dice3.classList.remove('hidden');
+      break;
+    case 4:
+      dice4.classList.remove('hidden');
+      break;
+    case 5:
+      dice5.classList.remove('hidden');
+      break;
+    case 6:
+      dice6.classList.remove('hidden');
+      break;
+  }
 });
