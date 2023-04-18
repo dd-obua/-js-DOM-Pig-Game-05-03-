@@ -28,5 +28,12 @@ btnRollDice.addEventListener('click', function () {
   if (rolledDice !== 1) {
     currentScore += rolledDice;
     select(`#current--${activePlayer}`).textContent = currentScore;
+  } else {
+    // Reset currentScore
+    currentScore = 0;
+    select(`#current--${activePlayer}`).textContent = currentScore;
+
+    // Switch to next player
+    activePlayer = activePlayer === 0 ? 1 : 0;
   }
 });
