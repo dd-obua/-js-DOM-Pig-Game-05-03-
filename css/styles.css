@@ -39,7 +39,7 @@ body {
   background: #7c2e2e;
 }
 
-.section {
+.player {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -59,11 +59,11 @@ h2 {
   color: #bf2e34;
 }
 
-.section-1 {
+.player--0 {
   background: #fcabae;
 }
 
-.section-2 {
+.player--1 {
   background: #e2c7e2;
 }
 
