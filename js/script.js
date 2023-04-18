@@ -17,10 +17,22 @@ const player1Element = select('.player--1');
 score0Element.textContent = 0;
 score1Element.textContent = 0;
 let activePlayer = 0;
+let currentPlayer = select(`#current--${activePlayer}`);
 const finalScores = [0, 0];
 let currentScore = 0;
 
 const rollDice = () => Math.trunc(Math.random() * 6) + 1;
+
+const switchPlayer = function () {
+  // Reset currentScore
+  currentScore = 0;
+  currentPlayer.textContent = currentScore;
+
+  // Switch to next player
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  player0Element.classList.toggle('player--active');
+  player1Element.classList.toggle('player--active');
+};
 
 // On dice roll
 btnRollDice.addEventListener('click', function () {
@@ -31,22 +43,25 @@ btnRollDice.addEventListener('click', function () {
 
   if (rolledDice !== 1) {
     currentScore += rolledDice;
-    select(`#current--${activePlayer}`).textContent = currentScore;
+    currentPlayer.textContent = currentScore;
   } else {
-    // Reset currentScore
-    currentScore = 0;
-    select(`#current--${activePlayer}`).textContent = currentScore;
-
-    // Switch to next player
-    activePlayer = activePlayer === 0 ? 1 : 0;
-    player0Element.classList.toggle('player--active');
-    player1Element.classList.toggle('player--active');
+    switchPlayer();
   }
 });
 
 // On hold
 btnHold.addEventListener('click', function () {
-  activePlayer = activePlayer === 0 ? 1 : 0;
-  player0Element.classList.toggle('player--active');
-  player1Element.classList.toggle('player--active');
+  // Add current score to the score of the active player
+  finalScores[activePlayer] += currentScore;
+  select(`#score--${activePlayer}`).textContent = finalScores[activePlayer];
+
+  // Check if current score >= 100,
+  if (finalScores[activePlayer] >= 100) {
+    // If yes, finish the game
+    console.log(`Game over! Player ${activePlayer + 1} wins!`);
+  } else {
+    switchPlayer();
+
+    
+  }
 });
