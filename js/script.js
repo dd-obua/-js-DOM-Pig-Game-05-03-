@@ -13,6 +13,8 @@ const score1Element = select('#score--1');
 // Set starting conditions
 score0Element.textContent = 0;
 score1Element.textContent = 0;
+let activePlayer = 0;
+const finalScores = [0, 0];
 let currentScore = 0;
 
 const rollDice = () => Math.trunc(Math.random() * 6) + 1;
@@ -25,6 +27,6 @@ btnRollDice.addEventListener('click', function () {
 
   if (rolledDice !== 1) {
     currentScore += rolledDice;
-    current0Element.textContent = currentScore;
+    select(`#current--${activePlayer}`).textContent = currentScore;
   }
 });
