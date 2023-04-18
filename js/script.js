@@ -16,6 +16,28 @@ const player1Element = select('.player--1');
 const player0Title = select('#name--0');
 const player1Title = select('#name--1');
 
+// Set starting conditions
+let finalScores, currentScore, activePlayer, isPlaying;
+
+const init = function () {
+  finalScores = [0, 0];
+  currentScore = 0;
+  activePlayer = 0;
+  isPlaying = true;
+
+  score0Element.textContent = 0;
+  score1Element.textContent = 0;
+  current0Element.textContent = 0;
+  current1Element.textContent = 0;
+
+  player0Element.classList.remove('player--winner');
+  player1Element.classList.remove('player--winner');
+  player0Element.classList.add('player--active');
+  player1Element.classList.remove('player--active');
+};
+
+init();
+
 const rollDice = () => Math.trunc(Math.random() * 6) + 1;
 
 const switchPlayer = function () {
@@ -27,24 +49,6 @@ const switchPlayer = function () {
   activePlayer = activePlayer === 0 ? 1 : 0;
   player0Element.classList.toggle('player--active');
   player1Element.classList.toggle('player--active');
-};
-
-const init = function () {
-  // Set starting conditions
-  const finalScores = [0, 0];
-  let currentScore = 0;
-  let activePlayer = 0;
-  let isPlaying = true;
-
-  score0Element.textContent = 0;
-  score1Element.textContent = 0;
-  current0Element.textContent = 0;
-  current1Element.textContent = 0;
-
-  player0Element.classList.remove('player--winner');
-  player1Element.classList.remove('player--winner');
-  player0Element.classList.add('player--active');
-  player1Element.classList.remove('player--active');
 };
 
 // On dice roll
