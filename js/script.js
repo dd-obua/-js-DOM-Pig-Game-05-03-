@@ -4,6 +4,7 @@
 const select = selector => document.querySelector(selector);
 
 const btnRollDice = select('.roll-dice');
+const btnHold = select('.hold');
 const diceElement = select('.dice');
 const current0Element = select('#current--0');
 const current1Element = select('#current--1');
@@ -21,6 +22,7 @@ let currentScore = 0;
 
 const rollDice = () => Math.trunc(Math.random() * 6) + 1;
 
+// On dice roll
 btnRollDice.addEventListener('click', function () {
   const rolledDice = rollDice();
 
@@ -40,4 +42,11 @@ btnRollDice.addEventListener('click', function () {
     player0Element.classList.toggle('player--active');
     player1Element.classList.toggle('player--active');
   }
+});
+
+// On hold
+btnHold.addEventListener('click', function () {
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  player0Element.classList.toggle('player--active');
+  player1Element.classList.toggle('player--active');
 });
