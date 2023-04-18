@@ -31,7 +31,6 @@ const init = function () {
   current1Element.textContent = 0;
 
   diceElement.classList.add('hidden');
-
   player0Element.classList.remove('player--winner');
   player1Element.classList.remove('player--winner');
   player0Element.classList.add('player--active');
