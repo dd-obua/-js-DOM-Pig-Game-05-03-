@@ -10,7 +10,7 @@ const current1Element = select('#current--1');
 const score0Element = select('#score--0');
 const score1Element = select('#score--1');
 
-// Starting conditions
+// Set starting conditions
 score0Element.textContent = 0;
 score1Element.textContent = 0;
 let currentScore = 0;
