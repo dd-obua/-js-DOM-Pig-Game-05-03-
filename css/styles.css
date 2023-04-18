@@ -132,3 +132,7 @@ img {
 .hidden {
   display: none;
 }
+
+.player--active {
+  background: rgba(255, 255, 255, 0.8);
+}
