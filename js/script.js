@@ -17,7 +17,6 @@ const player1Element = select('.player--1');
 score0Element.textContent = 0;
 score1Element.textContent = 0;
 let activePlayer = 0;
-let currentPlayer = select(`#current--${activePlayer}`);
 const finalScores = [0, 0];
 let currentScore = 0;
 
@@ -25,8 +24,8 @@ const rollDice = () => Math.trunc(Math.random() * 6) + 1;
 
 const switchPlayer = function () {
   // Reset currentScore
+  select(`#current--${activePlayer}`).textContent = 0;
   currentScore = 0;
-  currentPlayer.textContent = currentScore;
 
   // Switch to next player
   activePlayer = activePlayer === 0 ? 1 : 0;
@@ -43,7 +42,7 @@ btnRollDice.addEventListener('click', function () {
 
   if (rolledDice !== 1) {
     currentScore += rolledDice;
-    currentPlayer.textContent = currentScore;
+    select(`#current--${activePlayer}`).textContent = currentScore;
   } else {
     switchPlayer();
   }
@@ -57,11 +56,10 @@ btnHold.addEventListener('click', function () {
 
   // Check if current score >= 100,
   if (finalScores[activePlayer] >= 100) {
-    // If yes, finish the game
-    console.log(`Game over! Player ${activePlayer + 1} wins!`);
+    select(`.player--${activePlayer}`).classList.add('player--winner');
+    select(`.player--${activePlayer}`).classList.remove('player--active');
+    console.log('Win');
   } else {
     switchPlayer();
-
-    
   }
 });
