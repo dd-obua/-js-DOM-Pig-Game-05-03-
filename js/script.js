@@ -12,7 +12,8 @@ const score0Element = select('#score--0');
 const score1Element = select('#score--1');
 const player0Element = select('.player--0');
 const player1Element = select('.player--1');
-
+const player0Title = select('#name--0');
+const player1Title = select('#name--1');
 // Set starting conditions
 score0Element.textContent = 0;
 score1Element.textContent = 0;
@@ -58,7 +59,10 @@ btnHold.addEventListener('click', function () {
   if (finalScores[activePlayer] >= 100) {
     select(`.player--${activePlayer}`).classList.add('player--winner');
     select(`.player--${activePlayer}`).classList.remove('player--active');
-    console.log('Win');
+    btnRollDice.disabled = true;
+    btnHold.disabled = true;
+    diceElement.classList.add('hidden');
+    select(`#name--${activePlayer}`).style.color = '#c7365f';
   } else {
     switchPlayer();
   }
