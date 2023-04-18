@@ -9,6 +9,8 @@ const current0Element = select('#current--0');
 const current1Element = select('#current--1');
 const score0Element = select('#score--0');
 const score1Element = select('#score--1');
+const player0Element = select('.player--0');
+const player1Element = select('.player--1');
 
 // Set starting conditions
 score0Element.textContent = 0;
@@ -35,5 +37,7 @@ btnRollDice.addEventListener('click', function () {
 
     // Switch to next player
     activePlayer = activePlayer === 0 ? 1 : 0;
+    player0Element.classList.toggle('player--active');
+    player1Element.classList.toggle('player--active');
   }
 });
