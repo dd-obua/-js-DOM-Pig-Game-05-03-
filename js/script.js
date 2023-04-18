@@ -62,9 +62,9 @@ btnHold.addEventListener('click', function () {
     // Check if current score >= 100,
     if (finalScores[activePlayer] >= 100) {
       isPlaying = false;
+      diceElement.classList.add('hidden');
       select(`.player--${activePlayer}`).classList.add('player--winner');
       select(`.player--${activePlayer}`).classList.remove('player--active');
-      diceElement.classList.add('hidden');
       select(`#name--${activePlayer}`).style.color = '#c7365f';
     } else {
       switchPlayer();
