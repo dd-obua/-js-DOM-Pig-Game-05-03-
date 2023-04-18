@@ -5,6 +5,7 @@ const select = selector => document.querySelector(selector);
 
 const btnRollDice = select('.roll-dice');
 const btnHold = select('.hold');
+const btnNewGame = select('.new-game');
 const diceElement = select('.dice');
 const current0Element = select('#current--0');
 const current1Element = select('#current--1');
@@ -14,13 +15,6 @@ const player0Element = select('.player--0');
 const player1Element = select('.player--1');
 const player0Title = select('#name--0');
 const player1Title = select('#name--1');
-// Set starting conditions
-score0Element.textContent = 0;
-score1Element.textContent = 0;
-let activePlayer = 0;
-const finalScores = [0, 0];
-let currentScore = 0;
-let isPlaying = true;
 
 const rollDice = () => Math.trunc(Math.random() * 6) + 1;
 
@@ -33,6 +27,24 @@ const switchPlayer = function () {
   activePlayer = activePlayer === 0 ? 1 : 0;
   player0Element.classList.toggle('player--active');
   player1Element.classList.toggle('player--active');
+};
+
+const init = function () {
+  // Set starting conditions
+  const finalScores = [0, 0];
+  let currentScore = 0;
+  let activePlayer = 0;
+  let isPlaying = true;
+
+  score0Element.textContent = 0;
+  score1Element.textContent = 0;
+  current0Element.textContent = 0;
+  current1Element.textContent = 0;
+
+  player0Element.classList.remove('player--winner');
+  player1Element.classList.remove('player--winner');
+  player0Element.classList.add('player--active');
+  player1Element.classList.remove('player--active');
 };
 
 // On dice roll
@@ -70,4 +82,9 @@ btnHold.addEventListener('click', function () {
       switchPlayer();
     }
   }
+});
+
+// Reset the game
+btnNewGame.addEventListener('click', function () {
+  init();
 });
