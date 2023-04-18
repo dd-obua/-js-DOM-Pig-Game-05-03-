@@ -20,6 +20,7 @@ score1Element.textContent = 0;
 let activePlayer = 0;
 const finalScores = [0, 0];
 let currentScore = 0;
+let isPlaying = true;
 
 const rollDice = () => Math.trunc(Math.random() * 6) + 1;
 
@@ -36,34 +37,37 @@ const switchPlayer = function () {
 
 // On dice roll
 btnRollDice.addEventListener('click', function () {
-  const rolledDice = rollDice();
+  if (isPlaying) {
+    const rolledDice = rollDice();
 
-  diceElement.classList.remove('hidden');
-  diceElement.src = `./img/dice-${rolledDice}.png`;
+    diceElement.classList.remove('hidden');
+    diceElement.src = `./img/dice-${rolledDice}.png`;
 
-  if (rolledDice !== 1) {
-    currentScore += rolledDice;
-    select(`#current--${activePlayer}`).textContent = currentScore;
-  } else {
-    switchPlayer();
+    if (rolledDice !== 1) {
+      currentScore += rolledDice;
+      select(`#current--${activePlayer}`).textContent = currentScore;
+    } else {
+      switchPlayer();
+    }
   }
 });
 
 // On hold
 btnHold.addEventListener('click', function () {
-  // Add current score to the score of the active player
-  finalScores[activePlayer] += currentScore;
-  select(`#score--${activePlayer}`).textContent = finalScores[activePlayer];
+  if (isPlaying) {
+    // Add current score to the score of the active player
+    finalScores[activePlayer] += currentScore;
+    select(`#score--${activePlayer}`).textContent = finalScores[activePlayer];
 
-  // Check if current score >= 100,
-  if (finalScores[activePlayer] >= 100) {
-    select(`.player--${activePlayer}`).classList.add('player--winner');
-    select(`.player--${activePlayer}`).classList.remove('player--active');
-    btnRollDice.disabled = true;
-    btnHold.disabled = true;
-    diceElement.classList.add('hidden');
-    select(`#name--${activePlayer}`).style.color = '#c7365f';
-  } else {
-    switchPlayer();
+    // Check if current score >= 100,
+    if (finalScores[activePlayer] >= 100) {
+      isPlaying = false;
+      select(`.player--${activePlayer}`).classList.add('player--winner');
+      select(`.player--${activePlayer}`).classList.remove('player--active');
+      diceElement.classList.add('hidden');
+      select(`#name--${activePlayer}`).style.color = '#c7365f';
+    } else {
+      switchPlayer();
+    }
   }
 });
