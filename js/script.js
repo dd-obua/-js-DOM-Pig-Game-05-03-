@@ -60,7 +60,7 @@ rollBtn.addEventListener('click', () => {
   const dice = Math.trunc(Math.random() * 6) + 1;
 
   diceElem.classList.remove('hidden'); // Display the rolled dice
-  diceElem.src = `./images/dice-${dice}.png`;
+  diceElem.src = `./img/dice-${dice}.png`;
 
   if (dice !== 1) {
     // Update the current score if the dice is not 1
