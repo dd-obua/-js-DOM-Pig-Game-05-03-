@@ -1,93 +1,95 @@
-'use-strict';
+'use strict';
 
-// Select elements
+// Functions to select elements
 const select = selector => document.querySelector(selector);
+const selectAll = selector => document.querySelectorAll(selector);
 
-const btnRollDice = select('.roll-dice');
-const btnHold = select('.hold');
-const btnNewGame = select('.new-game');
-const diceElement = select('.dice');
-const current0Element = select('#current--0');
-const current1Element = select('#current--1');
-const score0Element = select('#score--0');
-const score1Element = select('#score--1');
-const player0Element = select('.player--0');
-const player1Element = select('.player--1');
-const player0Title = select('#name--0');
-const player1Title = select('#name--1');
+// Selecting elements from the HTML
+const player0Elem = select('.player--0');
+const player1Elem = select('.player--1');
+const score0Elem = select('#score--0');
+const score1Elem = select('#score--1');
+const diceElem = select('.dice');
+const currentScore0Elem = select('#current--0');
+const currentScore1Elem = select('#current--1');
+const rollBtn = select('.btn--roll');
+const newBtn = select('.btn--new');
+const holdBtn = select('.btn--hold');
 
-// Set starting conditions
-let finalScores, currentScore, activePlayer, isPlaying;
+// Initializing the game state
+let scores, currentScore, activePlayer, playing;
 
-const init = function () {
-  finalScores = [0, 0];
+const init = () => {
+  scores = [0, 0];
   currentScore = 0;
   activePlayer = 0;
-  isPlaying = true;
+  playing = true;
 
-  score0Element.textContent = 0;
-  score1Element.textContent = 0;
-  current0Element.textContent = 0;
-  current1Element.textContent = 0;
+  // Reset score and current score displays
+  score0Elem.textContent = 0;
+  score1Elem.textContent = 0;
+  currentScore0Elem.textContent = 0;
+  currentScore1Elem.textContent = 0;
 
-  diceElement.classList.add('hidden');
-  player0Element.classList.remove('player--winner');
-  player1Element.classList.remove('player--winner');
-  player0Element.classList.add('player--active');
-  player1Element.classList.remove('player--active');
+  diceElem.classList.add('hidden'); // Hide the dice
+
+  // Reset player styles
+  player0Elem.classList.remove('player--winner');
+  player1Elem.classList.remove('player--winner');
+  player0Elem.classList.add('player--active'); // Set player 1 as the active player
+  player1Elem.classList.remove('player--active');
 };
 
+// Initialize the game state when the page loads
 init();
 
-const rollDice = () => Math.trunc(Math.random() * 6) + 1;
-
-const switchPlayer = function () {
-  // Reset currentScore
+// Function to switch to the next player's turn
+const switchPlayer = () => {
   select(`#current--${activePlayer}`).textContent = 0;
   currentScore = 0;
-
-  // Switch to next player
-  activePlayer = activePlayer === 0 ? 1 : 0;
-  player0Element.classList.toggle('player--active');
-  player1Element.classList.toggle('player--active');
+  activePlayer = activePlayer === 0 ? 1 : 0; // Toggle active player
+  player0Elem.classList.toggle('player--active');
+  player1Elem.classList.toggle('player--active');
 };
 
-// On dice roll
-btnRollDice.addEventListener('click', function () {
-  if (isPlaying) {
-    const rolledDice = rollDice();
+// Event listener for the roll button
+rollBtn.addEventListener('click', () => {
+  if (!playing) return; // If the game is not active, do nothing
 
-    diceElement.classList.remove('hidden');
-    diceElement.src = `./img/dice-${rolledDice}.png`;
+  // Generate a random dice roll between 1 and 6
+  const dice = Math.trunc(Math.random() * 6) + 1;
 
-    if (rolledDice !== 1) {
-      currentScore += rolledDice;
-      select(`#current--${activePlayer}`).textContent = currentScore;
-    } else {
-      switchPlayer();
-    }
+  diceElem.classList.remove('hidden'); // Display the rolled dice
+  diceElem.src = `./images/dice-${dice}.png`;
+
+  if (dice !== 1) {
+    // Update the current score if the dice is not 1
+    currentScore += dice;
+    select(`#current--${activePlayer}`).textContent = currentScore;
+  } else {
+    // Switch to the next player if the dice is 1
+    switchPlayer();
   }
 });
 
-// On hold
-btnHold.addEventListener('click', function () {
-  if (isPlaying) {
-    // Add current score to the score of the active player
-    finalScores[activePlayer] += currentScore;
-    select(`#score--${activePlayer}`).textContent = finalScores[activePlayer];
+// Event listener for the hold button
+holdBtn.addEventListener('click', () => {
+  if (!playing) return; // If the game is not active, do nothing
 
-    // Check if current score >= 100,
-    if (finalScores[activePlayer] >= 100) {
-      isPlaying = false;
-      diceElement.classList.add('hidden');
-      select(`.player--${activePlayer}`).classList.add('player--winner');
-      select(`.player--${activePlayer}`).classList.remove('player--active');
-      select(`#name--${activePlayer}`).style.color = '#c7365f';
-    } else {
-      switchPlayer();
-    }
+  // Add the current score to the active player's total score
+  scores[activePlayer] += currentScore;
+  select(`#score--${activePlayer}`).textContent = scores[activePlayer];
+
+  if (scores[activePlayer] >= 100) {
+    playing = false; // Game is no longer active
+    diceElem.classList.add('hidden'); // Hide the dice
+    select(`.player--${activePlayer}`).classList.add('player--winner'); // Highlight the winner
+    select(`.player--${activePlayer}`).classList.remove('player--active');
+  } else {
+    // Switch to the next player's turn
+    switchPlayer();
   }
 });
 
-// Reset the game
-btnNewGame.addEventListener('click', init);
+// Event listener for the new game button
+newBtn.addEventListener('click', init);
